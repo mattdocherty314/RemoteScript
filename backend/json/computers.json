@@ -1,14 +1,24 @@
-{
-    [
-        {
-            "name": "MATT-PI",
-            "os": "Linux",
-            "ip": "10.0.0.60",
-            "port": 22,
-            "user": "guest",
-            "pass": "guest",
-            "cpu": 0,
-            "ram": "0 KB"
-        }
-    ]
-}
+[
+    {
+        "name": "MATT-PI",
+        "os": "Linux",
+        "ip": "10.0.0.60",
+        "port": 22,
+        "user": "guest",
+        "pass": "guest",
+        "cpu": 0,
+        "ram": 0,
+        "online": false
+    },
+    {
+        "name": "MATT-PI2",
+        "os": "Linux",
+        "ip": "10.0.0.61",
+        "port": 22,
+        "user": "guest",
+        "pass": "guest",
+        "cpu": 0,
+        "ram": 0,
+        "online": false
+    }
+]
