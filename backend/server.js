@@ -6,9 +6,15 @@ var exe_rem = require('./scripts/execute-remote.js');
 var exe_can = require('./scripts/execute-cancel.js');
 var get_use = require('./scripts/get-usage.js');
 
+setInterval(() => {
+    exe_rem.execute_remote();
+    exe_can.execute_cancel();
+    get_use.get_usage();
+}, 1000);
+
 http.createServer(function (req, res) {
-    var q = url.parse(req.url, true)
-    var pName = "."+q.pathname;
+    var q = url.parse(req.url, true);
+    var pName = ".."+q.pathname;
     fs.readFile(pName, function(err, data) {
         if (err) {
             res.writeHead(404, {'Content-Type': 'text/html'});
@@ -20,8 +26,4 @@ http.createServer(function (req, res) {
     });
 }).listen(3000);
 
-setInterval(() => {
-    exe_rem.execute_remote();
-    exe_can.execute_cancel();
-    get_use.get_usage();
-}, 1000);
+console.log("Listening on port 3000");
