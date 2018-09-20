@@ -14,7 +14,7 @@ setInterval(() => {
 
 http.createServer(function (req, res) {
     var q = url.parse(req.url, true);
-    var pName = ".."+q.pathname;
+    var pName = "."+q.pathname;
     fs.readFile(pName, function(err, data) {
         if (err) {
             res.writeHead(404, {'Content-Type': 'text/html'});
