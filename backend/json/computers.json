@@ -2,7 +2,7 @@
     {
         "name": "MATT-PI",
         "os": "Linux",
-        "ip": "10.0.0.60",
+        "ip": "10.0.0.61",
         "port": 22,
         "user": "guest",
         "pass": "guest",
@@ -13,7 +13,7 @@
     {
         "name": "MATT-PI2",
         "os": "Linux",
-        "ip": "10.0.0.61",
+        "ip": "10.0.0.24",
         "port": 22,
         "user": "guest",
         "pass": "guest",
