@@ -59,7 +59,7 @@ function editScript(id, json) {
     modifyBtn.innerHTML = "Edit Computer";
 
     var startStopBtn = document.getElementById("start-stop");
-    startStopBtn.disabled = false;
+    //startStopBtn.disabled = false;
     if (json[id].online === true) {
         startStopBtn.innerHTML = "Stop Server";
     } else {
