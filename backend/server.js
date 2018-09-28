@@ -6,6 +6,7 @@ var exe_rem = require("./scripts/execute-remote.js");
 var exe_can = require("./scripts/execute-cancel.js");
 var get_use = require("./scripts/get-usage.js");
 var mod_jsn = require("./scripts/modify-json.js");
+var tog_run = require("./scripts/toggle-run.js");
 
 setInterval(() => {
     exe_rem.execute_remote();
@@ -14,8 +15,9 @@ setInterval(() => {
 }, 1000);
 
 http.createServer(function (req, res) {
-    if ((req.method == "POST") && (req.url == "/backend/modify-data")) {
+    if (req.method == "POST") {
         var jsonString = "";
+        var json;
         req.on("data", function (data) {
             jsonString += data;
             
@@ -23,8 +25,12 @@ http.createServer(function (req, res) {
         req.on("end", function () {
             json = JSON.parse(jsonString);
             console.log(json);
-            mod_jsn.modify_json(json);
         });
+        if (req.url == "/backend/modify-json") {
+            mod_jsn.modify_json(json);
+        } else if (req.url == "/backend/toggle-run") {
+            tog_run.toggle_run(json);
+        }
     } else {
         var q = url.parse(req.url, true);
         var pName = "."+q.pathname;

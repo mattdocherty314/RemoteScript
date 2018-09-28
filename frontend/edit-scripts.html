@@ -9,16 +9,25 @@
 <body>
     <h1> Edit Script </h1>
     <p><a href="home.html"> Home </a></p>
-    <p><strong> Computer to terminate script: </strong></p>
-    <select id="computers">
-        
-    </select>
-    <p><strong> Edit/Stop the following scripts: </strong></p>
+    <h2> Edit/Stop the following scripts: </h2>
     <div id="list-scripts">
        
     </div>
+    <h2> Data Add/Edit: </h2>
     <div id="edit-data">
-
+        <p id="script-id"></p>
+        <strong> Name: </strong> <input id="edit-name"><br>
+        <strong> Content: </strong> <textarea id="edit-content"></textarea><br>
+        <button id="start-stop" disabled> Start Script </button>
+        <button id="modify"> Add Script </button>
+        <button id="clear"> Clear Data </button>
+        <p><strong> Computer to start/stop script on: </strong></p>
+        <select id="computers">
+        
+        </select>
+    </div>
+    <div id="error">
+        
     </div>
 </body>
 </html>

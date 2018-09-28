@@ -45,6 +45,18 @@ function addEventListeners(json) {
     } while (currentEditButton !== null);
 }
 
+function getEditFields() {
+    var editName = document.getElementById("edit-name");
+    var editOS = document.getElementById("edit-os");
+    var editIP = document.getElementById("edit-ip");
+    var editPort = document.getElementById("edit-port");
+    var editUser = document.getElementById("edit-user");
+    var editPass = document.getElementById("edit-pass");
+    
+    var editObjs = [editName, editOS, editIP, editPort, editUser, editPass];
+    return editObjs;
+}
+
 function editScript(id, json) {
     var editTitles = ["name", "os", "ip", "port", "user", "pass"];
     var editObjects = getEditFields();
@@ -105,22 +117,10 @@ function modifyData() {
 
 function sendModifcation(data) {
     var xhr = new XMLHttpRequest();
-    var file = "../../backend/modify-data";
+    var file = "../../backend/modify-json";
     xhr.open("POST", file, true);
     
     var dataString = JSON.stringify(data);
     console.log(dataString);
     xhr.send(dataString);
-}
-
-function getEditFields() {
-    var editName = document.getElementById("edit-name");
-    var editOS = document.getElementById("edit-os");
-    var editIP = document.getElementById("edit-ip");
-    var editPort = document.getElementById("edit-port");
-    var editUser = document.getElementById("edit-user");
-    var editPass = document.getElementById("edit-pass");
-    
-    var editObjs = [editName, editOS, editIP, editPort, editUser, editPass];
-    return editObjs;
 }
