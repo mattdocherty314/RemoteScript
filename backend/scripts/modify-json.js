@@ -1,5 +1,3 @@
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
 exports.modify_json = function(data) {
     main(data);
 }
@@ -33,7 +31,7 @@ function changeDB(id, db, data) {
     }
 
     if (db === "com") {
-        //oldDB = getOldData();
+        oldDB = getOldData();
         if (isNewEntry === true) {
             //addComputerEntry(oldDB, newEntry)
         } else {
@@ -44,14 +42,7 @@ function changeDB(id, db, data) {
 }
 
 function getOldData() {
-    var xhr = new XMLHttpRequest();
-    var file = "/json/computers.json";
-    xhr.open("GET", file, false);
-    xhr.send();
-    if (xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText);
-        return json;
-    }
+    var fs = require("fs");
 }
 
 function addComputerEntry(db, newRow) {
