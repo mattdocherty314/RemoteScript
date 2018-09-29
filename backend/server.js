@@ -2,15 +2,11 @@ var fs = require("fs");
 var http = require("http");
 var url = require("url");
 
-var exe_rem = require("./scripts/execute-remote.js");
-var exe_can = require("./scripts/execute-cancel.js");
 var get_use = require("./scripts/get-usage.js");
 var mod_jsn = require("./scripts/modify-json.js");
 var tog_run = require("./scripts/toggle-run.js");
 
 setInterval(() => {
-    exe_rem.execute_remote();
-    exe_can.execute_cancel();
     get_use.get_usage();
 }, 1000);
 
