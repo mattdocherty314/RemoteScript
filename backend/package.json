@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mattdocherty314/RemoteScript/issues"
   },
-  "homepage": "https://github.com/mattdocherty314/RemoteScript#readme"
+  "homepage": "https://github.com/mattdocherty314/RemoteScript#readme",
+  "dependencies": {
+    "xmlhttprequest": "^1.8.0"
+  }
 }

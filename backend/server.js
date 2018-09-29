@@ -21,12 +21,13 @@ http.createServer(function (req, res) {
         req.on("end", function () {
             json = JSON.parse(jsonString);
             console.log(json);
+            
+            if (req.url == "/backend/modify-json") {
+                mod_jsn.modify_json(json);
+            } else if (req.url == "/backend/toggle-run") {
+                tog_run.toggle_run(json);
+            }
         });
-        if (req.url == "/backend/modify-json") {
-            mod_jsn.modify_json(json);
-        } else if (req.url == "/backend/toggle-run") {
-            tog_run.toggle_run(json);
-        }
     } else {
         var q = url.parse(req.url, true);
         var pName = "."+q.pathname;
