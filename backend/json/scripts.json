@@ -2,13 +2,11 @@
     {
         "name": "HelloWorld",
         "content": "echo 'Hello World!'",
-        "running": [
-        ]
+        "running": []
     },
     {
         "name": "ListDir",
         "content": "ls",
-        "running": [
-        ]
+        "running": []
     }
 ]

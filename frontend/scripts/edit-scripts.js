@@ -146,7 +146,7 @@ function modifyData() {
 
 function sendModifcation(data) {
     var xhr = new XMLHttpRequest();
-    var file = "../../backend/modify-data";
+    var file = "../../backend/modify-json";
     xhr.open("POST", file, true);
     
     var dataString = JSON.stringify(data);

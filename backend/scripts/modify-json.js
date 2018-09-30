@@ -17,7 +17,7 @@ function main(json) {
 
 function changeDB(id, db, data) {
     if (db === "com") {
-        var oldDB = getOldData("backend/json/computers.json");
+        var dbFile = "backend/json/computers.json";
         var newEntry = `{
             "name": "${data.name}",
             "os": "${data.os}",
@@ -29,13 +29,24 @@ function changeDB(id, db, data) {
             "ram": 0,
             "online": true
         }`;
-        if (id === "") {
-            addComputerEntry(oldDB, newEntry);
-        } else {
-            modifyComputerEntry(oldDB, id, newEntry);
-        }
     } else if (db === "script") {
+        var dbFile = "backend/json/scripts.json";
+        var newEntry = `{
+            "name": "${data.name}",
+            "content": "${data.content}",
+            "running": [
+
+            ]
+        }`;
     }
+
+    var oldDB = getOldData(dbFile);
+    if (id === "") {
+        var newDB = addEntry(oldDB, newEntry);
+    } else {
+        var newDB = modifyEntry(oldDB, id, newEntry);
+    }
+    saveDB(dbFile, newDB);
 }
 
 function getOldData(file) {
@@ -43,28 +54,28 @@ function getOldData(file) {
     return JSON.parse(fileContent);
 }
 
-function addComputerEntry(db, newRow) {
-    var newDB = [];
+function addEntry(db, newRow) {
+    var newData = [];
     
     for (var r in db) {
-        newDB.push(db[r]);
-    } newDB.push(JSON.parse(newRow));
+        newData.push(db[r]);
+    } newData.push(JSON.parse(newRow));
 
-    saveDB("backend/json/computers.json", newDB);
+    return newData;
 }
 
-function modifyComputerEntry(db, id, newRow) {
-    var newDB = [];
+function modifyEntry(db, id, newRow) {
+    var newData = [];
 
     for (var r in db) {
         if (r === id) {
-            newDB.push(JSON.parse(newRow));
+            newData.push(JSON.parse(newRow));
         } else {
-            newDB.push(db[r]);
+            newData.push(db[r]);
         }
     }
 
-    saveDB("backend/json/computers.json", newDB);
+    return newData;   
 }
 
 function saveDB(file, db) {
