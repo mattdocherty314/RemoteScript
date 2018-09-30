@@ -106,7 +106,7 @@ function modifyData() {
             "name": "${editObjects[0].value}",
             "os": "${editObjects[1].value}",
             "ip": "${editObjects[2].value}",
-            "port": ${editObjects[3].value},
+            "port": "${editObjects[3].value}",
             "user": "${editObjects[4].value}",
             "pass": "${editObjects[5].value}"
         }

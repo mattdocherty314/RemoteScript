@@ -1,3 +1,5 @@
+var fs = require("fs");
+
 exports.modify_json = function(data) {
     main(data);
 }
@@ -10,45 +12,54 @@ function main(json) {
     } 
     var keySplit = key.split("-");
 
-    changeDB(keySplit[1], keySplit[0], json);
+    changeDB(keySplit[1], keySplit[0], json[key]);
 }
 
 function changeDB(id, db, data) {
-    var isNewEntry = false;
-    if (id === "") {
-        isNewEntry = true;
-        var newEntry = `{
-            "name": "${data.name}",
-            "os": "${data.os}",
-            "ip": "${data.ip}",
-            "port": ${data.port},
-            "user": "${data.user}",
-            "pass": "${data.pass}",
-            "cpu": 0,
-            "ram": 0,
-            "online": true
-        }`;
-    }
-
     if (db === "com") {
-        oldDB = getOldData();
-        if (isNewEntry === true) {
-            //addComputerEntry(oldDB, newEntry)
+        var oldDB = getOldData("backend/json/computers.json");
+
+        if (id === "") {
+            var newEntry = `{
+                "name": "${data.name}",
+                "os": "${data.os}",
+                "ip": "${data.ip}",
+                "port": ${data.port},
+                "user": "${data.user}",
+                "pass": "${data.pass}",
+                "cpu": 0,
+                "ram": 0,
+                "online": true
+            }`;
+            console.log(data);
+            addComputerEntry(oldDB, newEntry);
         } else {
-            //modifyComputerEntry(oldDB, id);
+            modifyComputerEntry(oldDB, id);
         }
     } else if (db === "script") {
     }
 }
 
-function getOldData() {
-    var fs = require("fs");
+function getOldData(file) {
+    var fileContent = fs.readFileSync(file);
+    return JSON.parse(fileContent);
 }
 
 function addComputerEntry(db, newRow) {
+    var newDB = [];
+    
+    for (var r in db) {
+        newDB.push(db[r]);
+    } newDB.push(JSON.parse(newRow));
 
+    saveDB("backend/json/computers.json", newDB);
 }
 
 function modifyComputerEntry(db, id) {
 
+}
+
+function saveDB(file, db) {
+    var formatDB = JSON.stringify(db, null, 4);
+    fs.writeFileSync(file, formatDB);
 }
