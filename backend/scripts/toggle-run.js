@@ -1,5 +1,5 @@
-var exe_rem = require("execute-remote.js");
-var exe_can = require("execute-cancel.js");
+var exe_rem = require("./execute-remote.js");
+var exe_can = require("./execute-cancel.js");
 
 var fs = require("fs");
 
