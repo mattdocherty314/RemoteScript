@@ -34,9 +34,7 @@ function changeDB(id, db, data) {
         var newEntry = `{
             "name": "${data.name}",
             "content": "${data.content}",
-            "running": [
-
-            ]
+            "running": []
         }`;
     }
 

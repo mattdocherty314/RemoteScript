@@ -1,6 +1,6 @@
-exports.execute_remote = function() {
-    main();
+exports.execute_remote = function(computer, script) {
+    main(computer, script);
 }
 
-function main() {
+function main(computer, script) {
 }

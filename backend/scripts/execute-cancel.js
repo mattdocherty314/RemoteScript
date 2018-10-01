@@ -1,6 +1,6 @@
-exports.execute_cancel = function() {
-    main();
+exports.execute_cancel = function(computer, script) {
+    main(computer, script);
 }
 
-function main() {
+function main(computer, script) {
 }
