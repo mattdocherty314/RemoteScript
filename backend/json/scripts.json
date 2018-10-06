@@ -1,7 +1,7 @@
 [
     {
         "name": "HelloWorld",
-        "content": "echo 'Hello World!'",
+        "content": "echo 'Hello World'",
         "running": []
     },
     {
