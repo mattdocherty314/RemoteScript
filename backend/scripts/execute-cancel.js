@@ -9,9 +9,8 @@ function main(computer, script) {
     var computerSettings = getComputerSettings(computer);
     var scriptSettings = getScriptSettings(script);
 
-    var pid = getProcessID(computerSettings, scriptSettings);
-    stopScript(pid);
-    //removeComputerFromRunning(computer, scriptSettings);
+    stopScript(computerSettings, scriptSettings);
+    removeComputerFromRunning(computer, scriptSettings);
 }
 
 function getComputerSettings(computer) {
@@ -40,28 +39,19 @@ function getScriptSettings(script) {
     return scriptData;
 }
 
-function getProcessID(computerData, scriptData) {
+function stopScript(computerData, scriptData) {
     var script = scriptData.content.split(" ")[0];
     var ip = computerData.ip;
     var port = computerData.port;
     var user = computerData.user;
     var pass = computerData.pass;
 
-    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} "ps -A | grep ${script}"`;
-    return exec(command, function(err, stdout, stderr) {
-        console.log(stdout.split(" ")[1]);
-        return stdout.split(" ")[1];
+    var getPID = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} "ps -A | grep ${script}"`;
+    exec(getPID, function(err, stdout, stderr) {
+        var pid = stdout.split(" ")[0];
+        var killPID = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} kill ${pid}`;
+        exec(killPID, () => {});
     });
-}
-
-function stopScript(processID) {
-    var ip = computerData.ip;
-    var port = computerData.port;
-    var user = computerData.user;
-    var pass = computerData.pass;
-
-    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} kill ${processID}`;
-    exec(command, () => {});
 }
 
 function removeComputerFromRunning(computer, scriptData) {
@@ -70,7 +60,12 @@ function removeComputerFromRunning(computer, scriptData) {
 
     for (var s in scriptJSON) {
         if (scriptJSON[s].name === scriptData.name) {
-            scriptJSON[s].running.push(computer);
+            for (c in scriptJSON[s].running) {
+                if (scriptJSON[s].running[c] === computer) {
+                    delete scriptJSON[s].running[c];
+                }
+                break;
+            }
             break;
         }
     }
