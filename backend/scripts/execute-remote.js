@@ -46,7 +46,7 @@ function startScript(computerData, scriptData) {
     var user = computerData.user;
     var pass = computerData.pass;
 
-    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script} > ${name}`;
+    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script} > cmd-output/${name}.txt`;
 
     exec(command, function(err, stdout, stderr) {
         console.log(err);
