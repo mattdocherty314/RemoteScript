@@ -8,5 +8,10 @@
         "name": "ListDir",
         "content": "ls",
         "running": []
+    },
+    {
+        "name": "count10M",
+        "content": "seq 10000000",
+        "running": []
     }
 ]
