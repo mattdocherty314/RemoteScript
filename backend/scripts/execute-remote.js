@@ -39,14 +39,14 @@ function getScriptSettings(script) {
 }
 
 function startScript(computerData, scriptData) {
+    var name = scriptData.name;
     var script = scriptData.content;
-    
     var ip = computerData.ip;
     var port = computerData.port;
     var user = computerData.user;
     var pass = computerData.pass;
 
-    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script}`;
+    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script} > ${name}`;
 
     exec(command, function(err, stdout, stderr) {
         console.log(err);
