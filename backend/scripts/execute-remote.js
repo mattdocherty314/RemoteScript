@@ -10,6 +10,7 @@ function main(computer, script) {
     var scriptSettings = getScriptSettings(script);
 
     startScript(computerSettings, scriptSettings);
+    addComputerToRunning(computer, scriptSettings);
 }
 
 function getComputerSettings(computer) {
@@ -48,4 +49,18 @@ function startScript(computerData, scriptData) {
 
     var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script} > backend/cmd-output/${name}.txt`;
     exec(command, () => {});
+}
+
+function addComputerToRunning(computer, scriptData) {
+    var scriptDB = fs.readFileSync("backend/json/scripts.json");
+    var scriptJSON = JSON.parse(scriptDB);
+
+    for (var s in scriptJSON) {
+        if (scriptJSON[s].name === scriptData.name) {
+            scriptJSON[s].running.push(computer);
+            break;
+        }
+    }
+    
+    fs.writeFileSync("backend/json/scripts.json", JSON.stringify(scriptJSON, null, 4));
 }
