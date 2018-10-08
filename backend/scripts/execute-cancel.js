@@ -62,7 +62,7 @@ function removeComputerFromRunning(computer, scriptData) {
         if (scriptJSON[s].name === scriptData.name) {
             for (c in scriptJSON[s].running) {
                 if (scriptJSON[s].running[c] === computer) {
-                    scriptJSON[s].running.slice(c, 1);
+                    scriptJSON[s].running.splice(c, 1);
                 }
                 break;
             }
