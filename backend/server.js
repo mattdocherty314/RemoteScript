@@ -8,7 +8,7 @@ var scr_sts = require("./scripts/script-status.js");
 var tog_run = require("./scripts/toggle-run.js");
 
 setInterval(() => {
-    //get_use.get_usage();
+    get_use.get_usage();
     scr_sts.script_status();
 }, 1000);
 
