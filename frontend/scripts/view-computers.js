@@ -27,7 +27,7 @@ function displayComputerJSON(div, json) {
         div.innerHTML += "<p class='ip'> <strong> IP Address: </strong> "+json[c].ip+" </p>";
         div.innerHTML += "<p class='port'> <strong> Port: </strong> "+json[c].port+" </p>";
         div.innerHTML += "<p class='cpu'> <strong> CPU Usage (%): </strong> "+json[c].cpu+" </p>";
-        div.innerHTML += "<p class='ram'> <strong> RAM Usage (KB): </strong> "+json[c].ram+" </p>";
+        div.innerHTML += "<p class='ram'> <strong> RAM Usage (%): </strong> "+json[c].ram+" </p>";
         if (json[c].online === true) {
             div.innerHTML += "<p class='online'><strong> Online </strong></p>";
         } else {
