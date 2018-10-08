@@ -7,7 +7,7 @@ exports.get_usage = function() {
 
 function main() {
     updateCPU();
-    //updateRAM();
+    updateRAM();
 }
 
 function updateCPU() {
@@ -81,7 +81,6 @@ function addRAM(ramPercentages) {
             }
         }
     }
-
     return totalRAM.toFixed(2);
 }
 

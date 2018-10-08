@@ -40,14 +40,15 @@ function getScriptSettings(script) {
 }
 
 function startScript(computerData, scriptData) {
-    var name = scriptData.name;
+    var scriptName = scriptData.name;
     var script = scriptData.content;
+    var computerName = computerData.name;
     var ip = computerData.ip;
     var port = computerData.port;
     var user = computerData.user;
     var pass = computerData.pass;
 
-    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script} > backend/cmd-output/${name}.txt`;
+    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ${script} > "backend/cmd-output/${scriptName}_&_${computerName}.txt"`;
     exec(command, () => {});
 }
 
