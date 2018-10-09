@@ -7,10 +7,10 @@ var mod_jsn = require("./scripts/modify-json.js");
 var scr_sts = require("./scripts/script-status.js");
 var tog_run = require("./scripts/toggle-run.js");
 
-setInterval(() => {
-    get_use.get_usage();
-    scr_sts.script_status();
-}, 1000);
+// setInterval(() => {
+//     get_use.get_usage();
+//     scr_sts.script_status();
+// }, 1000);
 
 http.createServer(function (req, res) {
     if (req.method == "POST") {
@@ -38,7 +38,12 @@ http.createServer(function (req, res) {
                 res.writeHead(404, {"Content-Type": "text/html"});
                 return res.end("404 Not Found");
             }
-            res.writeHead(200, {"Content-Type": "text/html"});
+            var pNameType = pName.split(".")[2];
+            if (pNameType === "css") {
+                res.writeHead(200, {"Content-Type": "text/css"});
+            } else {
+                res.writeHead(200, {"Content-Type": "text/html"});
+            }
             res.write(data);
             return res.end();
         });
