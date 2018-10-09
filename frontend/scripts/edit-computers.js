@@ -32,7 +32,9 @@ function displayComputerName(div, json) {
 
 function addEventListeners(json) {
     var clearBtn = document.getElementById("clear");
-    clearBtn.addEventListener("click", clearData);
+    clearBtn.addEventListener("click", function() {
+        location.reload();
+    });
 
     var modifyBtn = document.getElementById("modify");
     modifyBtn.addEventListener("click", modifyData);
@@ -40,7 +42,9 @@ function addEventListeners(json) {
     var i = 0;
     do {
         var currentEditButton = document.getElementById("edit-com-"+i);
-        currentEditButton.addEventListener("click", (evt) => editScript(evt.srcElement.id.split("-")[2], json));
+        currentEditButton.addEventListener("click", function (evt) {
+            editScript(evt.srcElement.id.split("-")[2], json)
+        });
         i += 1;
     } while (currentEditButton !== null);
 }
@@ -77,24 +81,6 @@ function editScript(id, json) {
     } else {
         startStopBtn.innerHTML = "Start Server";
     }
-}
-
-function clearData() {
-    var editTitles = ["name", "os", "ip", "port", "user", "pass"];
-    var editObjects = getEditFields();
-    for (var t in editTitles) {
-        editObjects[t].setAttribute("value", "");
-    }
-
-    var idPara = document.getElementById("com-id");
-    idPara.innerHTML = ""; 
-
-    var modifyBtn = document.getElementById("modify");
-    modifyBtn.innerHTML = "Add Computer";
-
-    var startStopBtn = document.getElementById("start-stop");
-    startStopBtn.disabled = true;
-    startStopBtn.innerHTML = "Start Server";
 }
 
 function modifyData() {

@@ -53,7 +53,9 @@ function displayComputers(div, json) {
 
 function addEventListeners(json) {
     var clearBtn = document.getElementById("clear");
-    clearBtn.addEventListener("click", clearData);
+    clearBtn.addEventListener("click", function() {
+        location.reload();
+    });
 
     var modifyBtn = document.getElementById("modify");
     modifyBtn.addEventListener("click", modifyData);
@@ -108,25 +110,6 @@ function editScript(id, json) {
     modifyBtn.innerHTML = "Edit Script";
 
     updateButton(json[id]);
-}
-
-function clearData() {
-    var editName = document.getElementById("edit-name");
-    editName.setAttribute("value", "");
-
-    var editContent = document.getElementById("edit-content");
-    editContent.innerHTML = "";
-
-    var idPara = document.getElementById("script-id");
-    idPara.innerHTML = ""; 
-
-    var modifyBtn = document.getElementById("modify");
-    modifyBtn.innerHTML = "Add Script";
-
-    var startStopBtn = document.getElementById("start-stop");
-    startStopBtn.disabled = true;
-    startStopBtn.innerHTML = "Start Script";
-    document.getElementById("computers").removeEventListener("change", updateButton);
 }
 
 function modifyData() {
