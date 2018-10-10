@@ -7,10 +7,10 @@ var mod_jsn = require("./scripts/modify-json.js");
 var scr_sts = require("./scripts/script-status.js");
 var tog_run = require("./scripts/toggle-run.js");
 
-// setInterval(() => {
-//     get_use.get_usage();
-//     scr_sts.script_status();
-// }, 1000);
+setInterval(() => {
+    get_use.get_usage();
+    scr_sts.script_status();
+}, 1000);
 
 http.createServer(function (req, res) {
     if (req.method == "POST") {

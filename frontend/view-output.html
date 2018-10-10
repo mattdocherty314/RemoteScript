@@ -9,20 +9,32 @@
 </head>
 <body>
     <h1> View Output </h1>
-    <p><a href="home.html"> Home </a></p>
+    <div id="navbar">
+        <ul>
+            <li><a href="home.html"> Home </a></li>
+            <li><a href="edit-computers.html"> Edit Computers </a></li>
+            <li><a href="view-computers.html"> View Computers </a></li>
+            <li><a href="edit-scripts.html"> Edit Scripts </a></li>
+            <li><a href="view-scripts.html"> View Scripts </a></li>
+            <li><a href="view-output.html"> View Output </a></li>
+        </ul>
+    </div>
     <p><strong>Select a computer: </strong></p>
     <select id="computer">
 
     </select>
-    <p><strong>Select a script: </strong></p>
+    <h2>Select a script: </h2>
     <select id="script">
 
     </select>
     <br><br>
     <button id="show"> Show Output </button>
-    <p><strong>Output: </strong></p>
+    <h2>Output: </h2>
     <div id="output">
 
+    </div>
+    <div id="error">
+        
     </div>
 </body>
 </html>

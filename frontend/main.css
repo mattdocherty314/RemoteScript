@@ -1,0 +1,84 @@
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+body {
+    background-color: #2d0922;
+    color: #eeeeec;
+    font-family: "Ubuntu";
+}
+
+button {
+    background-color: #2d0922;
+    border: none;
+    color: #eeeeec;
+    font-family: "Ubuntu";
+    font-size: 18px;
+} button:hover {
+    background-color: #eeeeec;
+    color: #2d0922;
+}  button:disabled {
+    background-color: #3d3c37;
+    color: #5e5d57;
+} 
+
+h1 {
+    color: #8ae234;
+    font-size: 24px;
+}
+
+h2 {
+    color: #729fcf;
+    font-size: 24px;
+}
+
+input {
+    background-color: #2d0922;
+    border: none;
+    color: #eeeeec;
+    font-size: 18px;
+} input:hover {
+    background-color: #eeeeec;
+    color: #2d0922;
+}
+
+p {
+    font-size: 18px;
+}
+
+select {
+    background-color: #2d0922;
+    color: #eeeeec;
+}
+
+textarea {
+    background-color: #2d0922;
+    border: none;
+    color: #eeeeec;
+    font-family: "Ubuntu";
+    font-size: 18px; 
+} textarea:hover {
+    background-color: #eeeeec;
+    color: #2d0922;
+}
+
+#error {
+    color: #cc0000;
+}
+
+#navbar ul {
+    font-size: 21px;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+} #navbar li {
+    display: inline;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+} #navbar li:hover {
+    background-color: #eeeeec;
+    color: #2d0922;
+}

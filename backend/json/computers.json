@@ -6,8 +6,8 @@
         "port": 22,
         "user": "guest",
         "pass": "guest",
-        "cpu": 13.2,
-        "ram": 30.3,
+        "cpu": 0,
+        "ram": 0,
         "online": true
     },
     {

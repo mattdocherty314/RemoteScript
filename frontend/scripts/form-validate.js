@@ -1,17 +1,27 @@
 window.addEventListener("load", pageLoad);
 
 function pageLoad() {
-    setInterval(compareChanges, 1000);
-    setInterval(computerDataValid, 1000);
+    setInterval(pageLoop, 1000);
+}
+
+function pageLoop() {
+    var modifyBtn = document.getElementById("modify");
+    modifyBtn.disabled = true;
+    
+    var dataValid = computerDataValid();
+    var dataSame = compareChanges();
+    if ((dataValid === true) && (dataSame === true)) {
+        modifyBtn.disabled = false;
+    }
 }
 
 function compareChanges() {
     var pageInfo = getPageInfo();
     if (pageInfo[0] === "edit") {
         if (pageInfo[1] === "computers.html") {
-            compareComputerData();
+            return compareComputerData();
         } else if (pageInfo[1] === "scripts.html") {
-            compareScriptData();
+            return compareScriptData();
         }
     }
 }
@@ -31,10 +41,8 @@ function compareComputerData() {
     }
 
     var modifyBtn = document.getElementById("modify");
-    modifyBtn.disabled = true;
     var emptyStatus = checkEmptyStatus(inputValues);
     if (emptyStatus === 0) {
-        modifyBtn.disabled = false;
         var computerJSON = getJSON("../../backend/json/computers.json");
         for (var c in computerJSON) {
             var dataValues = [];
@@ -44,15 +52,15 @@ function compareComputerData() {
 
             var idElement = document.getElementById("com-id");
             if (isListIdentical(inputValues, dataValues) <= 1) {
-                idElement.innerHTML = "<strong> Computer ID: </strong>"+c;
+                idElement.innerHTML = "<strong> Computer ID: </strong> "+c;
                 modifyBtn.innerHTML = "Edit Computer";
                 break;
             } else {
                 idElement.innerHTML = "";
                 modifyBtn.innerHTML = "Add Computer";
             }
-        }
-    }
+        } return true;
+    } return false;
 }
 
 function compareScriptData() {
@@ -79,15 +87,14 @@ function compareScriptData() {
 
             var idElement = document.getElementById("script-id");
             if (isListIdentical(inputValues, dataValues) <= 1) {
-                idElement.innerHTML = "<strong> Script ID: </strong>"+s;
+                idElement.innerHTML = "<strong> Script ID: </strong> "+s;
                 startStopBtn.disabled = false;
                 break;
             } else {
                 idElement.innerHTML = "";
             }
-        }
-    }
-
+        } return true;
+    } return false;
 }
 
 function getJSON(dbFile) {
@@ -129,18 +136,14 @@ function isListIdentical(orig, comp) {
 }
 
 function computerDataValid() {
-    var ipValue = document.getElementById("edit-ip").value;
-    var validIP = checkValidIP(ipValue);
-
-    var portValue = document.getElementById("edit-port").value;
-    var validPort = checkValidPort(portValue);
-    
-    var comDataValid = (validIP && validPort);
-    var modifyBtn = document.getElementById("modify");
-    modifyBtn.disabled = true;
-    if (comDataValid === true) {
-        modifyBtn.disabled = false;
+    if (document.getElementById("edit-ip") !== null) {
+        var ipValue = document.getElementById("edit-ip").value;
+        var portValue = document.getElementById("edit-port").value;
+        var validIP = checkValidIP(ipValue);
+        var validPort = checkValidPort(portValue);
     }
+    
+    return (validIP && validPort);
 }
 
 function checkValidIP(ip) {
