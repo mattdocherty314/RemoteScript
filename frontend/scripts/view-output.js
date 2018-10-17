@@ -5,11 +5,11 @@ function pageLoad() {
     showOutputBtn.addEventListener("click", showOutput);
 
     var comDiv = document.getElementById("computer");
-    var comJSON = loadComputerJSON();
+    var comJSON = loadJSON("../../backend/json/computers.json");
     displayOptions(comDiv, comJSON);
 
     var scriptDiv = document.getElementById("script");
-    var scriptJSON = loadScriptJSON();
+    var scriptJSON = loadJSON("../../backend/json/scripts.json");
     displayOptions(scriptDiv, scriptJSON);
 }
 
@@ -17,28 +17,6 @@ function displayOptions(div, json) {
     div.innerHTML = "";
     for (var c in json) {
         div.innerHTML += "<option>"+json[c].name+"</option>";
-    }
-}
-
-function loadComputerJSON() {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/json/computers.json";
-    xhr.open("GET", file, false);
-    xhr.send();
-    if (xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText);
-        return json;
-    }
-}
-
-function loadScriptJSON() {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/json/scripts.json";
-    xhr.open("GET", file, false);
-    xhr.send();
-    if (xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText);
-        return json;
     }
 }
 
@@ -60,6 +38,6 @@ function showOutput() {
     var contentLines = content.split("\n");
     outputDiv.innerHTML = "";
     for (var l in contentLines) {
-        outputDiv.innerHTML += contentLines[l]+"<br>";
+        outputDiv.innerHTML += `${contentLines[l]} <br>`;
     }
 }

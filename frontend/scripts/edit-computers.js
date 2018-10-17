@@ -2,30 +2,19 @@ window.addEventListener("load", pageLoad);
 
 function pageLoad() {
     var comDiv = document.getElementById("list-computers");
-    var comJSON = loadComputerJSON();
+    var comJSON = loadJSON("../../backend/json/computers.json");
 
     displayComputerName(comDiv, comJSON);
 
     addEventListeners(comJSON);
 }
 
-function loadComputerJSON() {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/json/computers.json"
-    xhr.open("GET", file, false);
-    xhr.send();
-    if (xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText);
-        return json;
-    }
-}
-
 function displayComputerName(div, json) {
     div.innerHTML = "";
     for (var c in json) {
-        div.innerHTML += "<div id='com"+c+"'>";
-        div.innerHTML += "<p class='name'>"+json[c].name+" </p>";
-        div.innerHTML += "<button id='edit-com-"+c+"'> Edit Data </button>";
+        div.innerHTML += `<div id='com${c}'>`;
+        div.innerHTML += `<p class='name'>${json[c].name} </p>`;
+        div.innerHTML += `<button id='edit-com-${c}'>Edit Data</button>`;
         div.innerHTML += "</div><br>";
     }
 }
@@ -41,7 +30,7 @@ function addEventListeners(json) {
 
     var i = 0;
     do {
-        var currentEditButton = document.getElementById("edit-com-"+i);
+        var currentEditButton = document.getElementById(`edit-com-${i}`);
         currentEditButton.addEventListener("click", function (evt) {
             editScript(evt.srcElement.id.split("-")[2], json)
         });
@@ -69,7 +58,7 @@ function editScript(id, json) {
     }
 
     var idPara = document.getElementById("com-id");
-    idPara.innerHTML = "<strong> Computer ID: </strong> "+id; 
+    idPara.innerHTML = `<strong>Computer ID: </strong> ${id}`; 
 
     var modifyBtn = document.getElementById("modify");
     modifyBtn.innerHTML = "Edit Computer";
@@ -98,15 +87,6 @@ function modifyData() {
         }
     }`;
     var json = JSON.parse(jsonString);
-    sendModifcation(json);
+    sendBackend(json, "../../backend/modify-json");
 }
 
-function sendModifcation(data) {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/modify-json";
-    xhr.open("POST", file, true);
-    
-    var dataString = JSON.stringify(data);
-    console.log(dataString);
-    xhr.send(dataString);
-}

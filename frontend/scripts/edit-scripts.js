@@ -2,9 +2,9 @@ window.addEventListener("load", pageLoad);
 
 function pageLoad() {
     var scriptDiv = document.getElementById("list-scripts");
-    var scriptJSON = loadScriptJSON();
+    var scriptJSON = loadJSON("../../backend/json/scripts.json");
     var comDiv = document.getElementById("computers");
-    var comJSON = loadComputerJSON();
+    var comJSON = loadJSON("../../backend/json/computers.json");
 
     displayScriptName(scriptDiv, scriptJSON);
     displayComputers(comDiv, comJSON);
@@ -12,42 +12,20 @@ function pageLoad() {
     addEventListeners(scriptJSON);
 }
 
-function loadScriptJSON() {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/json/scripts.json"
-    xhr.open("GET", file, false);
-    xhr.send();
-    if (xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText);
-        return json;
-    }
-}
-
 function displayScriptName(div, json) {
     div.innerHTML = "";
     for (var c in json) {
-        div.innerHTML += "<div id='com"+c+"'>";
-        div.innerHTML += "<p class='name'>"+json[c].name+" </p>";
-        div.innerHTML += "<button id='edit-script-"+c+"'> Edit Data </button>";
+        div.innerHTML += `<div id='com${c}'>`;
+        div.innerHTML += `<p class='name'>${json[c].name}</p>`;
+        div.innerHTML += `<button id='edit-script-${c}'> Edit Data </button>`;
         div.innerHTML += "</div><br>";
-    }
-}
-
-function loadComputerJSON() {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/json/computers.json"
-    xhr.open("GET", file, false);
-    xhr.send();
-    if (xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText);
-        return json;
     }
 }
 
 function displayComputers(div, json) {
     div.innerHTML = "";
     for (var c in json) {
-        div.innerHTML += "<option>"+json[c].name+"</option>";
+        div.innerHTML += `<option>${json[c].name}</option>`;
     }
 }
 
@@ -65,8 +43,10 @@ function addEventListeners(json) {
 
     var i = 0;
     do {
-        var currentEditButton = document.getElementById("edit-script-"+i);
-        currentEditButton.addEventListener("click", (evt) => editScript(evt.srcElement.id.split("-")[2], json));
+        var currentEditButton = document.getElementById(`edit-script-${i}`);
+        currentEditButton.addEventListener("click", function (evt) {
+            editScript(evt.srcElement.id.split("-")[2], json);
+        });
         i += 1;
     } while (currentEditButton !== null);
 }
@@ -78,7 +58,8 @@ function updateButton() {
     var scriptSelected = scriptID.innerHTML.split(" ").slice(-1)[0]
 
     var comSelected = document.getElementById("computers").value;
-    var comRunning = loadScriptJSON()[scriptSelected].running;
+    var scriptJSON = loadJSON("../../backend/json/script.json");
+    var comRunning = scriptJSON[scriptSelected].running;
 
     var isRunning = false;
     for (var c in comRunning) {
@@ -104,7 +85,7 @@ function editScript(id, json) {
     editContent.innerHTML = json[id].content;
 
     var idPara = document.getElementById("script-id");
-    idPara.innerHTML = "<strong> Script ID: </strong> "+id; 
+    idPara.innerHTML = `<strong>Script ID: </strong> ${id}`; 
 
     var modifyBtn = document.getElementById("modify");
     modifyBtn.innerHTML = "Edit Script";
@@ -124,17 +105,7 @@ function modifyData() {
         }
     }`;
     var json = JSON.parse(jsonString);
-    sendModifcation(json);
-}
-
-function sendModifcation(data) {
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/modify-json";
-    xhr.open("POST", file, true);
-    
-    var dataString = JSON.stringify(data);
-    console.log(dataString);
-    xhr.send(dataString);
+    sendBackend(json, "../../backend/modify-json");
 }
 
 function toggleRun() {
@@ -146,11 +117,5 @@ function toggleRun() {
         "script": "${scriptName}"
     }`);
 
-    var xhr = new XMLHttpRequest();
-    var file = "../../backend/toggle-run";
-    xhr.open("POST", file, true);
-    
-    var dataString = JSON.stringify(data);
-    console.log(dataString);
-    xhr.send(dataString);
+    sendBackend(data, "../../backend/toggle-run");
 }

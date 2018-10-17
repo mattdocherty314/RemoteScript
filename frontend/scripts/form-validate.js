@@ -36,7 +36,7 @@ function compareComputerData() {
     var ids = ["name", "os", "ip", "port", "user", "pass"];
     var inputValues = [];
     for (var i in ids) {
-        var inputElement = document.getElementById("edit-"+ids[i]);
+        var inputElement = document.getElementById(`edit-${ids[i]}`);
         inputValues.push(inputElement.value);
     }
 
@@ -52,7 +52,7 @@ function compareComputerData() {
 
             var idElement = document.getElementById("com-id");
             if (isListIdentical(inputValues, dataValues) <= 1) {
-                idElement.innerHTML = "<strong> Computer ID: </strong> "+c;
+                idElement.innerHTML = `<strong>Computer ID: </strong> ${c}`;
                 modifyBtn.innerHTML = "Edit Computer";
                 break;
             } else {
@@ -67,7 +67,7 @@ function compareScriptData() {
     var ids = ["name", "content"];
     var inputValues = [];
     for (var i in ids) {
-        var inputElement = document.getElementById("edit-"+ids[i]);
+        var inputElement = document.getElementById(`edit-${ids[i]}`);
         inputValues.push(inputElement.value);
     }
 
@@ -87,7 +87,7 @@ function compareScriptData() {
 
             var idElement = document.getElementById("script-id");
             if (isListIdentical(inputValues, dataValues) <= 1) {
-                idElement.innerHTML = "<strong> Script ID: </strong> "+s;
+                idElement.innerHTML = `<strong>Script ID: </strong> ${s}`;
                 startStopBtn.disabled = false;
                 break;
             } else {
