@@ -1,94 +1,57 @@
+var format_script = require("./shared/format-script.js");
+
 var exec = require("child_process").exec;
 var fs = require("fs");
 
-exports.get_usage = function() {
-    main();
+exports.main = function() {
+    var fields = ["cpu", "ram"];
+    for (var f in fields) {
+        updateField(fields[f]);
+    }
 }
 
-function main() {
-    updateCPU();
-    updateRAM();
-}
-
-function updateCPU() {
+function updateField(field) {
     var computerDB = fs.readFileSync("backend/json/computers.json");
     var computerJSON = JSON.parse(computerDB);
 
     for (var c in computerJSON) {
-        var ip = computerJSON[c].ip;
-        var port = computerJSON[c].port;
-        var user = computerJSON[c].user;
-        var pass = computerJSON[c].pass;
+        if (field === "cpu") {
+            var psArg = "pcpu";
+        } else if (field === "ram") {
+            var psArg = "pmem";
+        }
+        var sshCommand = `ps -A -e -o ${psArg} --sort -${psArg}`;
 
-        var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ps -A -e -o pcpu --sort -pcpu`;
+        var command = format_script.main(computerJSON[c], sshCommand);
         exec(command, c, function(err, stdout, stderd) {
-            var cpu = addCPU(stdout.split("\n "));
-            editCPU(this.c, cpu);
-        }.bind({c: c}));
+            var val = addValues(stdout.split("\n "));
+            editField(this.field, this.c, val);
+        }.bind({c: c, field: field}));
     }
 }
 
-function addCPU(cpuPercentages) {
-    var totalCPU = 0;
-    for (var p in cpuPercentages) {
-        var cpup = parseFloat(cpuPercentages[p]);
-        if (isNaN(cpup) === false) {
-            totalCPU += cpup;
-            if (cpup === 0) {
+function addValues(values) {
+    var total = 0;
+    for (var v in values) {
+        var vP = parseFloat(values[v]);
+        if (isNaN(vP) === false) {
+            total += vP;
+            if (vP === 0) {
                 break;
             }
         }
     }
 
-    return totalCPU.toFixed(2);
+    return total.toFixed(2);
 }
 
-function editCPU(id, cpuTotal) {
-    var computerDB = fs.readFileSync("backend/json/computers.json");
+function editField(field, id, total) {
+    var computerFile = "backend/json/computers.json";
+    var computerDB = fs.readFileSync(computerFile);
     var computerJSON = JSON.parse(computerDB);
 
-    computerJSON[id].cpu = parseFloat(cpuTotal);
+    computerJSON[id][field] = parseFloat(total);
 
-    fs.writeFileSync("backend/json/computers.json", JSON.stringify(computerJSON, null, 4));
-}
-
-function updateRAM() {
-    var computerDB = fs.readFileSync("backend/json/computers.json");
-    var computerJSON = JSON.parse(computerDB);
-
-    for (var c in computerJSON) {
-        var ip = computerJSON[c].ip;
-        var port = computerJSON[c].port;
-        var user = computerJSON[c].user;
-        var pass = computerJSON[c].pass;
-
-        var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} ps -A -e -o pmem --sort -pmem`;
-        exec(command, c, function(err, stdout, stderd) {
-            var ram = addRAM(stdout.split("\n "));
-            editRAM(this.c, ram);
-        }.bind({c: c}));
-    }
-}
-
-function addRAM(ramPercentages) {
-    var totalRAM = 0;
-    for (var p in ramPercentages) {
-        var ramp = parseFloat(ramPercentages[p]);
-        if (isNaN(ramp) === false) {
-            totalRAM += ramp;
-            if (ramp === 0) {
-                break;
-            }
-        }
-    }
-    return totalRAM.toFixed(2);
-}
-
-function editRAM(id, ramTotal) {
-    var computerDB = fs.readFileSync("backend/json/computers.json");
-    var computerJSON = JSON.parse(computerDB);
-
-    computerJSON[id].ram = parseFloat(ramTotal);
-
-    fs.writeFileSync("backend/json/computers.json", JSON.stringify(computerJSON, null, 4));
+    var formatDB =  JSON.stringify(computerJSON, null, 4);
+    fs.writeFileSync(computerFile, formatDB);
 }

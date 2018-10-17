@@ -1,18 +1,14 @@
 var fs = require("fs");
 
-exports.modify_json = function(data) {
-    main(data);
-}
-
-function main(json) {
+exports.main = function(data) {
     var key = "";
-    for (var k in json) {
+    for (var k in data) {
         key = k;
         break;
     } 
     var keySplit = key.split("-");
 
-    changeDB(keySplit[1], keySplit[0], json[key]);
+    changeDB(keySplit[1], keySplit[0], data[key]);
 }
 
 function changeDB(id, db, data) {

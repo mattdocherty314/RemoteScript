@@ -1,19 +1,15 @@
-var exe_rem = require("./execute-remote.js");
-var exe_can = require("./execute-cancel.js");
+var execute_remote = require("./execute-remote.js");
+var execute_cancel = require("./execute-cancel.js");
 
 var fs = require("fs");
 
-exports.toggle_run = function(data) {
-    main(data);
-}
-
-function main(json) {
-    var scriptRunning = getScriptState(json.computer, json.script);
+exports.mian = function(data) {
+    var scriptRunning = getScriptState(data.computer, data.script);
     
     if (scriptRunning === true) {
-        exe_can.execute_cancel(json.computer, json.script);
+        execute_cancel.main(data.computer, data.script);
     } else {
-        exe_rem.execute_remote(json.computer, json.script);
+        execute_remote.main(data.computer, data.script);
     }
 }
 

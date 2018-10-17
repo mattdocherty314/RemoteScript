@@ -1,55 +1,25 @@
+var format_script = require("./shared/format-script.js");
+var get_data = require("./shared/get-data.js");
+
 var exec = require("child_process").exec;
 var fs = require("fs");
 
-exports.execute_cancel = function(computer, script) {
-    main(computer, script);
-}
-
-function main(computer, script) {
-    var computerSettings = getComputerSettings(computer);
-    var scriptSettings = getScriptSettings(script);
+exports.main = function(computer, script) {
+    var computerSettings = get_data.main("backend/json/computers.json", computer);
+    var scriptSettings = get_data.main("backend/json/scripts.json", script);
 
     stopScript(computerSettings, scriptSettings);
     removeComputerFromRunning(computer, scriptSettings);
 }
 
-function getComputerSettings(computer) {
-    var computerDB = fs.readFileSync("backend/json/computers.json");
-    var computerJSON = JSON.parse(computerDB);
-    for (var c in computerJSON) {
-        if (computerJSON[c].name === computer) {
-            var computerData = computerJSON[c];
-            break;
-        }
-    }
-
-    return computerData;
-}
-
-function getScriptSettings(script) {
-    var scriptDB = fs.readFileSync("backend/json/scripts.json");
-    var scriptJSON = JSON.parse(scriptDB);
-    for (var s in scriptJSON) {
-        if (scriptJSON[s].name === script) {
-            var scriptData = scriptJSON[s];
-            break;
-        }
-    }
-
-    return scriptData;
-}
-
 function stopScript(computerData, scriptData) {
     var script = scriptData.content.split(" ")[0];
-    var ip = computerData.ip;
-    var port = computerData.port;
-    var user = computerData.user;
-    var pass = computerData.pass;
+    var sshCommand = `ps -A | grep ${script}`;
 
-    var getPID = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} "ps -A | grep ${script}"`;
+    var getPID = format_script.main(computerData, sshCommand);
     exec(getPID, function(err, stdout, stderr) {
         var pid = stdout.split(" ")[0];
-        var killPID = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} kill ${pid}`;
+        var killPID = format_script.main(computerData, `kill ${pid}`);
         exec(killPID, () => {});
     });
 }
@@ -70,5 +40,6 @@ function removeComputerFromRunning(computer, scriptData) {
         }
     }
     
-    fs.writeFileSync("backend/json/scripts.json", JSON.stringify(scriptJSON, null, 4));
+    var formatDB =  JSON.stringify(scriptJSON, null, 4)
+    fs.writeFileSync("backend/json/scripts.json", formatDB);
 }

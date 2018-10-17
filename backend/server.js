@@ -2,14 +2,14 @@ var fs = require("fs");
 var http = require("http");
 var url = require("url");
 
-var get_use = require("./scripts/get-usage.js");
-var mod_jsn = require("./scripts/modify-json.js");
-var scr_sts = require("./scripts/script-status.js");
-var tog_run = require("./scripts/toggle-run.js");
+var get_usage = require("./scripts/get-usage.js");
+var modify_json = require("./scripts/modify-json.js");
+var script_status = require("./scripts/script-status.js");
+var toggle_run = require("./scripts/toggle-run.js");
 
 setInterval(() => {
-    get_use.get_usage();
-    scr_sts.script_status();
+    get_usage.main();
+    script_status.main();
 }, 1000);
 
 http.createServer(function (req, res) {
@@ -25,9 +25,9 @@ http.createServer(function (req, res) {
             console.log(json);
             
             if (req.url == "/backend/modify-json") {
-                mod_jsn.modify_json(json);
+                modify_json.main(json);
             } else if (req.url == "/backend/toggle-run") {
-                tog_run.toggle_run(json);
+                toggle_run.main(json);
             }
         });
     } else {
