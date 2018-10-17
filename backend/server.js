@@ -18,12 +18,9 @@ http.createServer(function (req, res) {
         var json;
         req.on("data", function (data) {
             jsonString += data;
-            
         });
         req.on("end", function () {
             json = JSON.parse(jsonString);
-            console.log(json);
-            
             if (req.url == "/backend/modify-json") {
                 modify_json.main(json);
             } else if (req.url == "/backend/toggle-run") {

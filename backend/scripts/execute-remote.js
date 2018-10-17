@@ -13,13 +13,12 @@ exports.main = function(computer, script) {
 }
 
 function startScript(computerData, scriptData) {
+    var computerName = computerData.name;
     var scriptName = scriptData.name;
     var script = scriptData.content;
-    var computerName = computerData.name;
-    var sshScript = `${script} > "backend/cmd-output/${scriptName}_&_${computerName}.txt`;
 
-    var command = format_script.main(computerData, sshScript);
-    var command = `sshpass -p "${pass}" ssh -p ${port} ${user}@${ip} "`;
+    var sshScript = format_script.main(computerData, script);
+    var command = `${sshScript} > "backend/cmd-output/${scriptName}_&_${computerName}.txt"`;
     exec(command, () => {});
 }
 
@@ -34,6 +33,6 @@ function addComputerToRunning(computer, scriptData) {
         }
     }
     
-    var formatDB =  JSON.stringify(sriptJSON, null, 4)
+    var formatDB =  JSON.stringify(scriptJSON, null, 4)
     fs.writeFileSync("backend/json/scripts.json", formatDB);
 }

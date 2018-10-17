@@ -3,7 +3,7 @@ var execute_cancel = require("./execute-cancel.js");
 
 var fs = require("fs");
 
-exports.mian = function(data) {
+exports.main = function(data) {
     var scriptRunning = getScriptState(data.computer, data.script);
     
     if (scriptRunning === true) {
