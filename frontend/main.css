@@ -82,3 +82,9 @@ textarea {
     background-color: #eeeeec;
     color: #2d0922;
 }
+
+.online {
+    color: #4E9A06;
+} .offline {
+    color: #EF2929;
+}
