@@ -10,7 +10,7 @@ var toggle_run = require("./scripts/toggle-run.js");
 setInterval(() => {
     get_usage.main();
     script_status.main();
-}, 1000);
+}, 10000);
 
 http.createServer(function (req, res) {
     if (req.method == "POST") {
