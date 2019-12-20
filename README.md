@@ -12,8 +12,7 @@ This program has been tested on the NodeJS version released in late 2018, withou
 ## Program Use
 Run the backend server with:
 ```
-cd ./backend
-node server.js
+node ./backend/server.js
 ```
 Then launch the file:
 `./index.html`
