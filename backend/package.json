@@ -1,21 +1,11 @@
 {
-  "name": "remotescript",
-  "version": "1.0.0",
+  "name": "remotescript-backend",
+  "version": "2.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mattdocherty314/RemoteScript.git"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mattdocherty314/RemoteScript/issues"
-  },
-  "homepage": "https://github.com/mattdocherty314/RemoteScript#readme",
-  "dependencies": {}
+  "license": "ISC"
 }
