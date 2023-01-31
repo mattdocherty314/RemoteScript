@@ -1,0 +1,13 @@
+[
+	{
+		"name": "MATT-PI",
+		"os": "Linux",
+		"ip": "10.0.0.216",
+		"port": 22,
+		"user": "guest",
+		"pass": "guest",
+		"cpu": 100,
+		"ram": 50,
+		"online": false
+	}
+]

@@ -46,6 +46,9 @@ input {
 p {
     font-size: 18px;
 }
+ul {
+    font-size: 20px;
+}
 
 select {
     background-color: #2d0922;
@@ -64,7 +67,11 @@ textarea {
 }
 
 #error {
+	padding: 3%;
     color: #cc0000;
+}
+#computers {
+	padding: 3%;
 }
 
 #navbar ul {
