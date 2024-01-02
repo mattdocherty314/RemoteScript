@@ -5,30 +5,45 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-	let path = req.url.split('/').slice(-1)[0]; // Get URL path
+	let path = req.url.split('/').slice(-2); // Get URL path
+	let entryID = -1;
 	let resp = "";
 
 	res.setHeader('Access-Control-Allow-Origin', "*");
 	res.setHeader('Content-Type', "application/json");
 
 	// Setup routes manually in NodeJS
-	switch (path) {
-		case "view-computers":
-			let comFile = fs.readFileSync('./database/computers.json')
-			resp = JSON.parse(comFile);
-			break;
-		case "view-scripts":
-			break;
-		case "edit-computers":
-			break;
-		case "edit-scripts":
-			break;
-		case "run-script":
-			break;
-		case "stop-script":
-			break;
-		default:
-			break;
+	if (path[1] === "view-computers") {
+		let computerDBFile = fs.readFileSync('./database/computers.json')
+		resp = JSON.parse(computerDBFile);
+	}
+	else if (path[1] === "view-scripts") {
+		let scriptDBFile = fs.readFileSync('./database/scripts.json')
+		resp = JSON.parse(scriptDBFile);
+	}
+	else if (path[0] === "get-computer") {
+		let computerDBEntry = fs.readFileSync('./database/computers.json')
+		resp = JSON.parse(computerDBEntry).filter((entry) => {return entry._id === parseInt(path[1])});
+
+	}
+	else if (path[0] === "get-script") {
+		let scriptDBEntry = fs.readFileSync('./database/scripts.json')
+		resp = JSON.parse(scriptDBEntry).filter((entry) => {entry._id === parseInt(path[1])});
+	}
+	else if (path[1] === "edit-computers") {
+		
+	}
+	else if (path[1] === "edit-scripts") {
+		
+	}
+	else if (path[1] === "run-script") {
+		
+	}
+	else if (path[1] === "stop-script") {
+		
+	}
+	else {
+		
 	}
 
 	res.end(JSON.stringify(resp)); // Finish sending the requests
