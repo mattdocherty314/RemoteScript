@@ -1,1 +1,9 @@
-[]
+[
+    {
+		"_id": 0,
+        "name": "Hello World",
+		"computer_id": 0,
+		"script": "echo 'Hello World'",
+		"running": false
+	}
+]
