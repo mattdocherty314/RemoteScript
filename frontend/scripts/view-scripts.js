@@ -19,7 +19,7 @@ function pageLoad() {
 				errorDiv.innerHTML = err;
 			})
 			console.log(computerName)
-			scriptsDiv.innerHTML += `<div id='script${idx}' class='com'>
+			scriptsDiv.innerHTML += `<div id='script${script._id}' class='com'>
 				<h2> ${script.name} <b class='${script.running ? 'online' : 'offline'}'>*</b></h2>
 					<ul><b>RUN ON COMPUTER:</b> '${computerName[0].name}' </ul>
 					<ul><b>SCRIPT:</b> \`${script.script}\` </ul>

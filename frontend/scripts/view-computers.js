@@ -11,7 +11,7 @@ function pageLoad() {
 		console.log(res);
 		computersDiv.innerHTML = "";
 		res.forEach((com, idx) => {
-			computersDiv.innerHTML += `<div id='com${idx}' class='com'>
+			computersDiv.innerHTML += `<div id='com${com._id}' class='com'>
 				<h2> ${com.name} <b class='${com.online ? 'online' : 'offline'}'>*</b></h2>
 					<ul><b>OS:</b> ${com.os} </ul>
 					<ul><b>IP:</b> ${com.ip} </ul>

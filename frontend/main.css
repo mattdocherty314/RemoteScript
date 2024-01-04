@@ -73,6 +73,25 @@ textarea {
 #computers {
 	padding: 3%;
 }
+#scripts {
+	padding: 3%;
+}
+#edit-data {
+	padding: 3%;
+}
+
+#list-computers li {
+	padding: 1%;
+    padding-right: 3%;
+    font-size: 18px;
+    list-style-type: none;
+} #list-computers li:hover {
+	padding: 1%;
+    font-size: 18px;
+    background-color: #eeeeec;
+    color: #2d0922;
+    list-style-type: none;
+}
 
 #navbar ul {
     font-size: 21px;
