@@ -1,5 +1,20 @@
 function pageLoad() {
-    
+    let editNameField = document.getElementById("edit-name");
+    let editOSField = document.getElementById("edit-os");
+    let editIPField = document.getElementById("edit-ip");
+    let editPortField = document.getElementById("edit-port");
+    let editUserField = document.getElementById("edit-user");
+    let editPassField = document.getElementById("edit-pass");
+
+    editNameField.addEventListener("input", checkValid);
+    editOSField.addEventListener("input", checkValid);
+    editIPField.addEventListener("input", checkValid);
+    editPortField.addEventListener("input", checkValid);
+    editUserField.addEventListener("input", checkValid);
+    editPassField.addEventListener("input", checkValid);
+}
+
+function checkValid() {
 }
 
 // Validation Functions
