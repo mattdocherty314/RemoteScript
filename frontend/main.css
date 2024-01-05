@@ -76,8 +76,11 @@ textarea {
 #scripts {
 	padding: 3%;
 }
+
 #edit-data {
 	padding: 3%;
+} #edit-data button:disabled {
+    background-color: #eeeeec;
 }
 
 #list-computers li {
