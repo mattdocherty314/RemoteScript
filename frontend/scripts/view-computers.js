@@ -20,7 +20,7 @@ function pageLoad() {
 					<ul><b>PASSWORD:</b> ${com.pass} </ul> 
 					<ul><b>CPU:</b> ${textProgress(com.cpu)}</ul>
 					<ul><b>RAM:</b> ${textProgress(com.ram)}</ul>
-			</div>`
+			</div>`;
 		});
 	})
 	.catch((err) => {
@@ -34,7 +34,7 @@ function textProgress(value) {
 		if (i > value) {
 			break;
 		}
-		prog += "|"
+		prog += "|";
 	}
 	return prog;
 }
