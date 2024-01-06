@@ -1,10 +1,13 @@
 const HOST = "http://localhost:3000";
+let selectedItemID = -1;
 
 function selectComputer(itemID) {
+	selectedItemID = itemID.slice(3);
+
 	let modifyButton = document.getElementById("modify");
 	modifyButton.innerHTML = "Modify Computer";
 	
-	fetch(`${HOST}/get-computer/${itemID.slice(3)}`)
+	fetch(`${HOST}/get-computer/${selectedItemID}`)
 	.then((res) => {
 		return res.json();
 	})
@@ -28,6 +31,27 @@ function selectComputer(itemID) {
 	})
 }
 
+function clearFields() {
+	selectedItemID = -1;
+
+	let editNameField = document.getElementById("edit-name");
+	let editOSField = document.getElementById("edit-os");
+	let editIPField = document.getElementById("edit-ip");
+	let editPortField = document.getElementById("edit-port");
+	let editUserField = document.getElementById("edit-user");
+	let editPassField = document.getElementById("edit-pass");
+
+	editNameField.value = "";
+	editOSField.value = "";
+	editIPField.value = "";
+	editPortField.value = "";
+	editUserField.value = "";
+	editPassField.value = "";
+
+	let modifyButton = document.getElementById("modify");
+	modifyButton.innerHTML = "Add Computer";
+}
+
 function pageLoad() {
 	let listComputersDiv = document.getElementById("list-computers");
 	let errorDiv = document.getElementById("error");
@@ -45,6 +69,9 @@ function pageLoad() {
 	.catch((err) => {
 		errorDiv.innerHTML = err;
 	})
+
+	let clearButton = document.getElementById("clear");
+	clearButton.addEventListener("click", clearFields);
 }
 
 
