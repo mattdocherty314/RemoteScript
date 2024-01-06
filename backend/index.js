@@ -38,6 +38,7 @@ const server = http.createServer((req, res) => {
 		})
 		.on('end', () => {
 			body = JSON.parse(Buffer.concat(body).toString());
+			// If it doesn't exist, create an entry
 			if (entry.length === 0) {
 				let newItem = {
 					"_id": JSON.parse(computerDBEntry)[JSON.parse(computerDBEntry).length-1]._id+1, //add one to ID
@@ -53,14 +54,35 @@ const server = http.createServer((req, res) => {
 				}
 				let newDB = JSON.parse(computerDBEntry);
 				newDB.push(newItem);
-				fs.writeFileSync("./database/computers.json", JSON.stringify(newDB, null, "\t"));
-				resp = {"message": "Added entry to database."}
+				fs.writeFileSync('./database/computers.json', JSON.stringify(newDB, null, "\t"));
 			}
 			// Otherwise overwrite the existing
 			else {
+				let database = JSON.parse(fs.readFileSync('./database/computers.json'));
+				let newDB = database.map((entry) => {
+					if (entry._id === parseInt(path[1])) {
+						return {
+							"_id": entry._id,
+							"name": body.name,
+							"os": body.os,
+							"ip": body.ip,
+							"port": body.port,
+							"user": body.user,
+							"pass": body.pass,
+							"cpu": 0,
+							"ram": 0,
+							"online": false
+						}
+					}
+					else {
+						return entry;
+					}
+				})
+				fs.writeFileSync('./database/computers.json', JSON.stringify(newDB, null, "\t"));
 			}
 		});
-		// If it doesn't exist, create a new one
+		resp = {"message": "Modified database."};
+		
 		
 	}
 	else if (path[1] === "edit-scripts") {
